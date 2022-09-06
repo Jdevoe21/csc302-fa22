@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tododles</title>
+
+    <script src="sort-table.min.js"></script>
+
+    <style>
+        .category-col, #new-category {
+            width: 120px;
+        }
+
+        .item-col, #new-item {
+            width: 150px;
+        }
+
+        .priority-col, #new-priority {
+            width: 60px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Tododles</h1>
+
+    <table>
+        <tr>
+            <th class="category-col">Category</th>
+            <th class="item-col">New item</th>
+            <th class="priority-col">Priority</th>
+            <th></th>
+        </tr>
+
+        <tr>
+            <td><input type="text" id="new-category"/></td>
+            <td><input type="text" id="new-item"/></td>
+            <td><input type="number" id="new-priority"/></td>
+            <td><button>Add</button></td>
+        </tr>
+    </table>
+
+    <table class="js-sort-table">
+        <tr>
+            <th class="category-col">Categoty</th>
+            <th class="item-col">Item</th>
+            <th class="priority-col">Priority</th>
+            <th></th>
+        </tr>
+
+        <tr>
+            <td>school</td>
+            <td>do homework</td>
+            <td>3</td>
+            <td><button class="remove-item">X</button></td>
+        </tr>
+
+        <tr>
+            <td>friends</td>
+            <td>catch up with friends</td>
+            <td>2</td>
+            <td><button class="remove-item">X</button></td>
+        </tr>
+
+        <tr>
+            <td>family</td>
+            <td>call mom</td>
+            <td>1</td>
+            <td><button class="remove-item">X</button></td>
+        </tr>
+
+    </table>
+</body>
+</html>
