@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizzer</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        var list, nextId;
+
+        function addQuestion(){
+            $('quiz-list').append('<tr>'+
+                '<td><button>Delete</button></td>'+
+            '</tr>');
+        }
+        function removeQuestion(){
+            
+        }
+        function saveList(){
+            localStorage.list = JSON.stringify(list);
+            localStorage.nextId = nextId;
+        }
+        function loadList(){
+            if(localStorage.nextId === undefined){
+                nextId = 0;
+                list = {};
+            }
+            else{
+                nextId = parseInt(localStorage.nextId);
+                list = JSON.parse(localStorage.list);
+            }
+        }
+        
+        $(document).ready(function(){
+            $(document).on('click', '#add-Question', addQuestion);
+
+            loadList();
+        });
+
+    </script>
+</head>
+<body>
+    <div id="quiz-panel">
+        <!-- Ignore this for now. -->
+    </div>
+
+    <div id="quiz-admin-panel">
+        <h1>Quiz Admin</h1>
+
+        <table id="quiz-list">
+            <tr>
+                <th class="question-col">Question</th>
+                <th class="answer-col">Correct Answer</th>
+                <th></th>
+            </tr>
+    
+            <tr>
+                <td><input type="text" id="question"/></td>
+                <td><input type="text" id="answer"/></td>
+                <td><button>Delete</button></td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td><button id="add-Question">Add Question</button></td>
+                <td><button>Save</button></td>
+            </tr>
+        </table>
+        
+    </div>
+    
+</body>
+</html>
