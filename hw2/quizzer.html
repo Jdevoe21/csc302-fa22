@@ -10,7 +10,9 @@
         var list, nextId;
 
         function addQuestion(){
-            $('quiz-list').append('<tr>'+
+            $('#quiz-list').append('<tr>'+
+                '<td><input type="text" id="question"/></td>'+
+                '<td><input type="text" id="answer"/></td>'+
                 '<td><button>Delete</button></td>'+
             '</tr>');
         }
