@@ -2,73 +2,73 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tododles</title>
+    <title>Quizzer</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        var list, nextId;
 
-    <script src="sort-table.min.js"></script>
-
-    <style>
-        .category-col, #new-category {
-            width: 120px;
+        function addQuestion(){
+            $('quiz-list').append('<tr>'+
+                '<td><button>Delete</button></td>'+
+            '</tr>');
         }
-
-        .item-col, #new-item {
-            width: 150px;
+        function removeQuestion(){
+            
         }
-
-        .priority-col, #new-priority {
-            width: 60px;
+        function saveList(){
+            localStorage.list = JSON.stringify(list);
+            localStorage.nextId = nextId;
         }
-    </style>
+        function loadList(){
+            if(localStorage.nextId === undefined){
+                nextId = 0;
+                list = {};
+            }
+            else{
+                nextId = parseInt(localStorage.nextId);
+                list = JSON.parse(localStorage.list);
+            }
+        }
+        
+        $(document).ready(function(){
+            $(document).on('click', '#add-Question', addQuestion);
+
+            loadList();
+        });
+
+    </script>
 </head>
 <body>
-    <h1>Tododles</h1>
+    <div id="quiz-panel">
+        <!-- Ignore this for now. -->
+    </div>
 
-    <table>
-        <tr>
-            <th class="category-col">Category</th>
-            <th class="item-col">New item</th>
-            <th class="priority-col">Priority</th>
-            <th></th>
-        </tr>
+    <div id="quiz-admin-panel">
+        <h1>Quiz Admin</h1>
 
-        <tr>
-            <td><input type="text" id="new-category"/></td>
-            <td><input type="text" id="new-item"/></td>
-            <td><input type="number" id="new-priority"/></td>
-            <td><button>Add</button></td>
-        </tr>
-    </table>
-
-    <table class="js-sort-table">
-        <tr>
-            <th class="category-col">Categoty</th>
-            <th class="item-col">Item</th>
-            <th class="priority-col">Priority</th>
-            <th></th>
-        </tr>
-
-        <tr>
-            <td>school</td>
-            <td>do homework</td>
-            <td>3</td>
-            <td><button class="remove-item">X</button></td>
-        </tr>
-
-        <tr>
-            <td>friends</td>
-            <td>catch up with friends</td>
-            <td>2</td>
-            <td><button class="remove-item">X</button></td>
-        </tr>
-
-        <tr>
-            <td>family</td>
-            <td>call mom</td>
-            <td>1</td>
-            <td><button class="remove-item">X</button></td>
-        </tr>
-
-    </table>
+        <table id="quiz-list">
+            <tr>
+                <th class="question-col">Question</th>
+                <th class="answer-col">Correct Answer</th>
+                <th></th>
+            </tr>
+    
+            <tr>
+                <td><input type="text" id="question"/></td>
+                <td><input type="text" id="answer"/></td>
+                <td><button>Delete</button></td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td><button id="add-Question">Add Question</button></td>
+                <td><button>Save</button></td>
+            </tr>
+        </table>
+        
+    </div>
+    
 </body>
 </html>
