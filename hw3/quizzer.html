@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizzer</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <style>
+        .bar h1{
+            display: inline-block;
+            margin-right: 1em;
+        }
+        body.quiz-panel .quiz-admin-panel,
+        body.quiz-admin-panel .quiz-panel {
+            display: none;
+        }
+    </style>
+
+    <script>
+        var list, nextId;
+
+        function addQuestion(){
+            $('#quiz-list').append('<tr>'+
+                '<td><input type="text" id="question"/></td>'+
+                '<td><input type="text" id="answer"/></td>'+
+                '<td><button>Delete</button></td>'+
+            '</tr>');
+        }
+
+        function removeQuestion(){
+            
+        }
+
+        function saveList(){
+            localStorage.list = JSON.stringify(list);
+            localStorage.nextId = nextId;
+        }
+
+        function loadList(){
+            if(localStorage.nextId === undefined){
+                nextId = 0;
+                list = {};
+            }
+            else{
+                nextId = parseInt(localStorage.nextId);
+                list = JSON.parse(localStorage.list);
+            }
+        }
+
+        function updateViews(){
+            var id = window.location.hash.match(/^#?([^?]*)/)[1];
+
+            if(id.length === 0){
+                $('body').addClass('quiz-panel').removeClass('quiz-admin-panel');
+            } else {
+                $('body').removeClass('quiz-panel').addClass('quiz-admin-panel');
+            }
+        }
+        
+        $(document).ready(function(){
+            $(document).on('click', '#add-Question', addQuestion);
+
+            $(window).on('hashchange',  updateViews);
+
+            updateViews();
+            loadList();
+        });
+
+    </script>
+</head>
+<body>
+    <div class="quiz-panel">
+        <div class="bar">
+            <h1>Quiz</h1>
+            <a href="#1">Admin</a>
+        </div>
+    </div>
+
+    <div class="quiz-admin-panel">
+        <div class="bar">
+            <h1>Quiz Admin</h1>
+            <a href="">Quiz</a>
+        </div>
+
+        <table id="quiz-list">
+            <tr>
+                <th class="question-col">Question</th>
+                <th class="answer-col">Correct Answer</th>
+                <th></th>
+            </tr>
+    
+            <tr>
+                <td><input type="text" id="question"/></td>
+                <td><input type="text" id="answer"/></td>
+                <td><button>Delete</button></td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td><button id="add-Question">Add Question</button></td>
+                <td><button>Save</button></td>
+            </tr>
+        </table>
+        
+    </div>
+    
+</body>
+</html>
